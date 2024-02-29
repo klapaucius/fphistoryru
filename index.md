@@ -19,7 +19,7 @@
 
 [Обновление 2023-10-31](prehist.md#lambda-the-ultimate-misunderstanding)
 
-[Дополнения 2023-09-12](prehist.mdhttps://gist.github.com/klapaucius/ab5a543401248b6f517b4755fd4bb017)
+[Дополнения 2023-09-12](https://gist.github.com/klapaucius/ab5a543401248b6f517b4755fd4bb017)
 
 [Обновление 2023-08-26](prehist.md#надежда-умирает-последней)
 
