@@ -23,6 +23,10 @@
     - [Еще ортогональнее](#еще-ортогональнее)
     - [Джон Хьюз и великие комбинаторы](#джон-хьюз-и-великие-комбинаторы)
     - [Полная ленивость](#полная-ленивость)
+  - [Чайники Рассела](#чайники-рассела)
+    - [Russell](#russell)
+    - [Poly](#poly)
+    - [Воспроизведение](#воспроизведение)
 - [Литература](#литература)
 
 
@@ -696,6 +700,201 @@ Fairbairn + Wray
 Ну что ж. В 80-е, конечно, наступило время успехов ФП, но, похоже, не для всех.   
 Над чем еще работали в Кембридже?   
 
+## Чайники Рассела
+
+> К сожалению, некоторые хорошие идеи из этого и родственных языков так и не попали в мейнстрим. К счастью, плохие идеи тоже не попали.   
+> Х. Боэм [Boeh12]
+
+В предыдущих главах мы выяснили, что невозможные в 60-х и 70-х годах имплементации функциональных языков, написанные с нуля, стали очень даже возможны в 80-х. И, конечно, в это время возможностей и еще одна разновидность неудач 70-х стала разновидностью успехов: переделывание имплементации языка со сборщиком мусора в имплементацию функционального языка.   
+Мы начнем рассказ о таких имплементациях не с Лиспов, а с языков, принадлежащих к другим, не обоекембриджским ветвям потомков ALGOL 60. Из истории того из них, который мы рассматривали подробнее в прошлых главах - ALGOL 68 - видно, что облегчение синтаксиса и мечты о функциональных фичах сделали его настолько похожим на существенно менее известный CPL, что некоторые алголисты стали (ошибочно) считать, что типизированное функциональное программирование вообще и ML в частности происходят от ALGOL 68.   
+ALGOL 68 произвел тяжелое впечатление на авторов CLU, так что первый "язык 80-х" CLU был анти-Алголом 68 и, следовательно, языком анти-функциональным. Хотя, благодаря обязательному сборщику мусора, мог позволить функциональные фичи. К счастью, не все языки этого алгольно-паскального семейства были такими и авторы некоторых хотели воплотить в жизнь самые смелые мечты функциональной партии авторов Алгола 68.   
+Типизация, лексическая видимость и легкий синтаксис делали их настолько похожими на ML-и, что можно бы было и не выделять их в отдельную категорию от тех компиляторов, которые мы рассмотрели в предыдущих главах. Но мы сделали это. В меньшей степени из-за незначительной общей истории с ML-ями. А главным образом из-за различий в том, как из компилятора такого ФЯ будут делать компилятор ФЯ современного вида. Но это уже другая история.
+
+### Russell
+
+Одним из этих языков был Russell. В конце семидесятых о Russell говорили как о языке, похожем на CLU и как о примере того, что в язык, похожий на Паскаль можно добавить "мощные языковые конструкции". Эту похожесть на ALGOL 60/Pascal еще можно как-то разглядеть в ранних примерах [Deme78] :
+
+```
+proc Update(
+    type Ta with(
+             function f (Ta) : integer;
+                var field Cnt : integer;
+          );
+    var A : array 1..n of Ta
+  );
+  for i : 1..n loop
+    A[i].Cnt := A[i].Cnt + f(A[i])
+  end
+end Update
+```
+
+Но усилия по облегчению и "функционализации" синтаксиса вскоре стерли большую часть этого сходства, как и в случае прочих производных Алгола вроде CPL или Algol 68, вступивших на этот путь.   
+Russell разрабатывали [Boeh12] в Корнеллском университете (Cornell University) [Deme78] Алан Демер и Джеймс Донахью. Демер (Alan J. Demers) защитил докторскую диссертацию в Принстоне в 75 [Demers], а Донахью (James E. Donahue) в том же 75-ом в университете Торонто [Modula3]. Донахью ушел из Корнелла в 81-ом в лабораторию Xerox в Пало-Альто, но продолжил работать над Russell и там.   
+Третьим и, по всей видимости, наиболее известным сегодня автором языка был Ханс Боэм (Hans-Juergen Boehm), выпускник университета Вашингтона, он в 1978-1982 работал в Корнелле над диссертацией под руководством Демера [Boeh12]. Боэм впоследствии работал над описанием семантики и имплементацией Russell в 1982-84 в университете Вашингтона и в 1984-89гг. в Университете Райса (Rice University).   
+В 1980-ом Демер с Донахью пишут [Deme80], что Russell "скоро будет имплементирован". Но имплементация Russell не задалась. Почему? В предыдущих главах мы уже выяснили, что, в отличие от 70-х, 80-е это время возможностей и успехов для имплементаторов ФЯ. Но в случае Russell к ФЯ добавились дополнительные осложнения.   
+Как нам напомнила история Ponder, авторы Алгола 68 мечтали не только об имплементации ФЯ, но и об "ортогональности". Но можно ли сделать язык еще "ортогональнее", чем Ponder?   
+Может и не во всем, но и в Ponder есть средства, которые можно исключить, заменив уже имеющимися и непервоклассные средства, которые можно сделать первоклассными. В то время, когда в Эдинбурге хотели добавить параметризованные модули в язык с параметризованными типами и параметризованные типы в язык с параметризованными модулями, появилась идея языка в котором на _два_ способа параметризовать _меньше_.   
+Но как можно исключить из ФЯ и параметры типов и параметры модулей, сохранив нужный для ФЯ полиморфизм? В функциональном языке и так уже есть средство параметризовать все что нужно - функция. Пусть функция принимает одни типы и возвращает другие [Boeh80] [Deme80] :  
+
+```haskell
+List == func[ T : type{} ]
+  type L {
+    Nil    : func[] val L ;
+    empty? : func[ val L ] val Boolean ;
+    first  : func[ val L ] val T;
+    rest   : func[ val L ] val L;
+    ||     : func[ val L; val T ] val L }
+  { let
+      ConsNode == 
+        record{ hd: T; tl: union{ ConsNode; Void }}
+          with CN{
+            Mk == func[x: val T; y: val ConsNode]{ Mk[ x, FromConsNode[y] ] };
+            Mk == func[x: val T; y: val Void]{ Mk[ x, FromVoid[y] ] }
+          }
+    in union{ ConsNode; Void }
+      with L{
+        Nil == func[] { L$FromVoid[ Void$IsNull ] };
+        || == func[ x : val T; y : val L ]
+            { if
+              IsConsNode?[y] ==> FromConsNode[ Mk[ x; ToConsNode[y] ] ]
+              | else ==> FromConsNode[ Mk [ x; ToVoid [y]] ]
+              fi };
+        empty? == func[ x : val L ]{ IsVoid?[x] };
+        first == func[ x : val L ]{ hd[ ToConsNode[x] ] }; 
+        rest == func[ x : val L ]{ tl[ ToConsNode[x] ] } }
+    ni }
+```
+
+```haskell
+let map == func[ T, R : type{}; 
+                 f : func[ val T ] val R;
+                 L : List[T] ] val List[R]
+           { if 
+                empty?[L]  ==> Nil[];
+                | else ==> append[map[T;R;f;rest[L]];
+                                      f[first[L]] 
+                                      ];
+             fi } in
+let y == 2 in map [Integer;Integer;func[ x : Integer ]{ x + y };
+                   1 || 2 || 3 || Nil[]]
+```
+
+И, как оказалась, проверить, что функция примененная с одному и тому же типу возвращает один и тот же тип не так-то легко. 
+
+### Poly
+
+И пока авторы Russell все планировали и планировали его имплементировать, в Кембридже Дэвид Мэттьюз (David Charles James Matthews) имплементировал [Matt83] его упрощенную версию - язык Poly. Упрощения состояли в том, что создать тип с помощью функции в Poly можно:
+
+```
+let ilist == list(integer); 
+```
+
+но применить функцию справа от `:` нельзя, `l : list(integer)` - некорректная аннотация типа. И, в отличие от Russell, такие `let` нельзя использовать в сигнатуре абстрактного типа [Boeh86].   
+Автор Poly Мэттьюз собирался в дальнейшем преодолеть это ограничение, наложив ограничения на функции возвращающие типы. Авторы Russell поступили именно так, и по словам Мэттьюза, читавшего неотсканированные репорты о Russell не дошедшие до нас, в 79-ом году собирались ограничить вообще все функции, например, запретив в них свободные переменные. Но передумали. В 1980 и далее Russell задумывался как полноценный ФЯ, на котором можно писать функции вроде такой:
+
+```
+Y == func[ f : func[ func[ val T ] val T ] func[ val T ] val T ]
+       { func[ x : val T ] { (f[Y[f]]) [x] } }
+```
+
+и такой
+
+```
+compose ==
+    func[f: func[val t2]val t3;
+          g: func[val t1]val t2;
+          t1,t2,t3: type{}]{
+            func[x: val t1]val t3{f[g[x]]} 
+    }
+```
+
+Разумеется, Poly и Russell отличались не только этими важными вещами, но получили и множество мелких различий, как и у большинства уже рассмотренных нами родственных языков и диалектов. Пока функционального программирования не было, не было и кода, который можно переиспользовать. Но код уже начинает появляться и скоро с этим поверхностным разнообразием начнут бороться. Это уже, правда, другая история.   
+На языке Poly можно описать [Matt85] список как и на Russell, не в самых лучших традициях поздней системы МакКарти и ранних языков описания спецификаций:
+
+```haskell
+let list ==
+    proc(base: type end) 
+        type (list)
+            car : proc(list)base raises nil_list;
+            cdr : proc(list)list raises nil_list; 
+            cons: proc(base; list)list; 
+            nil : list; 
+            null: proc(list)boolean 
+        end
+    begin
+        type (list)
+            let node == record(cr: base; cd: list);
+            extends union(nl : void; nnl : node); 
+            let cons == proc(bb: base; ll: list)list
+                (list$inj_nnl(node$constr(bb, ll)));
+            let car ==
+                proc(ll: list)base
+                begin
+                    node$cr(list$proj_nnl(ll)) 
+                    catch proc(string)base (raise nil_list)
+                end;
+            let cdr ==
+                proc(ll: list)list
+                begin
+                    node$cd(list$proj_nnl(ll))
+                    catch proc(string)list (raise nil_list)
+                end;
+            let nil == list$inj_nl(void$empty);
+            let null == list$is_nl
+        end
+    end;
+
+```
+
+Но написать на Poly `map` как на Russell нельзя из-за того, что в сигнатуре потребуются применения функций. К счастью, в Poly, как и в Russell, но в отличие от ML и HOPE, уже решена проблема ограниченного полиморфизма, так что можно и даже нужно написать `map` принимающий и возвращающий любой тип с интерфейсом списка: 
+
+```haskell
+letrec map == proc[a: type end; b: type end;
+    alist : type (l)
+            car: proc(l)a raises nil_list;
+            cdr: proc(l)l raises nil_list; 
+            cons: proc(a; l)l;
+            nil : l;
+            null: proc(l)boolean 
+         end;
+    blist : type (l)
+            car: proc(l)b raises nil_list;
+            cdr: proc(l)l raises nil_list; 
+            cons: proc(b; l)l;
+            nil : l;
+            null: proc(l)boolean 
+        end]
+    (f: proc(a)b; xs: alist) blist 
+    ( if alist$null(xs) 
+        then blist$nil
+        else blist$cons(f(alist$car(xs)), map(f, alist$cdr(xs))) );
+
+let y == 2;
+let ilist == list(integer); 
+map[integer,integer](proc(x:integer)integer(x+y),
+                     ilist$cons(1, ilist$cons(2, ilist$cons(3, ilist$nil)))); 
+```
+
+Автор Ponder Фейрберн был знаком с этими победами "ортогональности", но посчитал слишком сложными и решил с этим не связываться. Что, возможно, лишило нас самого "ортогонального" языка из возможных. Но проблема с применением "функций", генерирующих типы, существует в некоторых ФЯ и сегодня, хотя сегодня это уже не проблема обычных функций, раз уж разнообразие способов параметризации в них победило.   
+В отличие от Russell, в Poly аргументы, которые могут выводиться и которые не могут, отличаются синтаксически - видом скобок.   
+Авторы этого подхода к параметризации знали о ML и были недовольны ограничениями его системы типов, как и Фейрберн. Они понимали, что все выводить как в ML, конечно, не получится, но рассчитывали на то, что смогут выводить многое. И сложности с этим их неприятно удивили [Boeh85]. Вывод даже того немногого, что получилось выводить имплементаторы Russell называют самой сложной частью имплементации [Boeh86].   
+
+### Воспроизведение
+
+Имплементация Poly, написанная Мэттюзом, в значительной степени воспроизводит работу Карделли над компилятором VAX ML. Это воспроизведение не было независимым. Мэттьюз работает над компилятором через пару лет после основной части работы Карделли, знает об этой работе и ссылается на нее. И этот контакт, установленный через перешедшего в Кембридж из Эдинбурга Гордона, работал в обе стороны. О Poly пишут в почтовой рассылке ML.   
+До имплементации Poly у Мэттьюза уже был опыт работы над компилятором Zurich Pascal.   
+Также как и компилятор Карделли, компилятор Poly интерактивный. Также, как и компилятор Карделли, компилятор Мэттьюза написан на Паскале для VAX. Но с самого начала на UNIX. Имплементация Poly разрабатывалась итеративно, сначала это был наивный интерпретатор АСТ, затем интерпретатор байт-кода, наконец компилятор, генерирующий машкод для VAX.   
+Мэттьюз парсит рекурсивным спуском, считает такой подход конвенциальным. Компилятор строит дерево, которое потом преобразует в машкод вторым проходом. Дерево представляет довольно низкоуровневый язык - команды стековой виртуальной машины, большая часть работы компилятора в первом проходе. Так что высокоуровневых оптимизаций, трансформирующих абстрактное синтаксическое дерево нет.   
+Как и Карделли, Мэттьюз имплементирует параметрический полиморфизм с помощью универсального представления, размещая в куче все, что не помещается в слово. Для того, чтоб отличать указатель от числа он использует не схему Карделли, ограничивающую числа половиной слова, а два бита тегов. Два бита чтоб отличать также указатель на одно слово в куче (01) и на объект из нескольких слов с одним из них, использованных для хранения длины объекта (10). 11 и 00 используются для чисел, так что они теряют только один бит точности.   
+Мэттьюз использует компактные замыкания-массивы, как и Карделли. Так что, как и в VAX ML, все локальные значения - неизменяемые, изменять можно только ячейку в куче. Функциональные значения - указатели на эти компактные замыкания, что требует двойной косвенности ссылок на функцию, что Мэттьюз считает существенным недостатком. Но ничего лучше пока что не придумал.   
+Главное отличие имплементаций, по видимому - сборщик мусора. Сборщик мусора у имплементации Poly на Паскале не копирующий, как у VAX ML, и вообще не перемещающий, как в первых имплементациях Лиспа. Собирает фрагменты кучи в список свободных. С не самыми лучшими последствиями для скорости аллокации и сборки.   
+В отличие от Карделли, Мэттьюз не считает свой интерактивный компилятор необычным. Но, наверное, на эту оценку повлияло то, что по крайней мере один такой компилятор уже был.   
+Как и в компиляторе Карделли, в компиляторе Мэттьюза делается не много оптимизации, но Мэттьюз, как и Карделли, заявляет, что все работает "приемлемо быстро" для интерактивной работы. И не приводит никаких измерений производительности. Что "приемлемо быстро" значило в случае VAX ML мы знаем благодаря Йонссону с Августссоном. Но что это значило в случае имплементации Poly на Паскале мы не знаем точно. Наш старый знакомый Гордон и будущий важный герой нашей истории Паульсон оценивают [Gord82] его производительность как высокую. Но это по сравнению с LCF/ML. Не очень высокая планка.   
+Оптимизатор (для начала - инлайнер) Мэттьюз решил писать на Poly после того, как перепишет компилятор на Poly. Да, в отличие от Карделли, Мэттьюз собирался делать компилятор, компилирующий самого себя. Причем компилятор должен был стать функцией, доступной в REPL, как в Лиспах или POP-2. Он даже начал это делать, переписав на Poly лексер и генератор кода, но не успел переписать до того, как закончил работать над своей диссертацией [Matt83] в 83-ем году. Работать над компилятором он, правда, не прекратил, но это уже другая история.   
+Смогли ли имплементировать Russell? В своей диссертации Мэттьюз пишет, что еще нет. Но существенно позднее Russell был таки имплементирован [Boeh86]. По видимому, на C [Boeh88]. Слишком поздно, чтоб оказаться в числе первых компиляторов ФЯ.  
+Эту имплементацию авторы тоже сравнивают с имплементацией ML Карделли (Боэм один из пользователей это компилятора), но сходство между этими компиляторами меньше, чем между компилятором Карделли и компилятором Мэттьюза. Например, имплементаторы Russell не используют более современный подход с компактными замыканиями-массивами, которые планировал использовать Стил в Rabbit и которые использовал Карделли. Вместо этого имплементаторы Russell размещают в куче фреймы стека, как делали имплементаторы Interlisp в 70-е.   
+На имплементацию ФЯ компилятор Russell не оказал значительного влияния. Разве что через использование консервативного сборщика мусора Боэма-Демера-Уизера [Boeh88], который происходит от рантайма Russell для Motorola 68K и является той самой работой, которой Боэм как раз известен. Сборщик Боэма подходит для имплементации ФЯ еще меньше, чем сборщик в имплементации Мэттьюза, но, как не странно, будет использоваться для имплементации ФЯ. Так что на этом мы прощаемся с языком Russell и его имплементацией. А к Poly и компилятору Мэттьюза мы еще вернемся.   
+
 ПРОДОЛЖЕНИЕ СЛЕДУЕТ
 
 Литература
@@ -707,6 +906,11 @@ Fairbairn + Wray
 [Augu21]: The Haskell Interlude 02: Lennart Augustsson https://www.buzzsprout.com/1817535/9286902   
 [Augu23]: Lennart Augustsson - MicroHaskell https://www.youtube.com/watch?v=Zk5SJ79nOnA   
 [Birr77]: Andrew Birrell. System Programming in a High Level Language. Ph.D. Thesis, University of Cambridge. December 1977.   
+[Boeh80]: Boehm, Hans-J., Alan J. Demers, and James E. Donahue. An informal description of Russell. Cornell University, 1980.   
+[Boeh85]: Boehm, H.-J. (1985). Partial polymorphic type inference is undecidable. 26th Annual Symposium on Foundations of Computer Science (sfcs 1985). doi:10.1109/sfcs.1985.44   
+[Boeh86]: Hans-Juergen Boehm and Alan Demers. 1986. Implementing RUSSELL. In Proceedings of the 1986 SIGPLAN symposium on Compiler construction (SIGPLAN '86). Association for Computing Machinery, New York, NY, USA, 186–195. doi:10.1145/12276.13330   
+[Boeh88]: Boehm, H.-J., & Weiser, M. (1988). Garbage collection in an uncooperative environment. Software: Practice and Experience, 18(9), 807–820. doi:10.1002/spe.4380180902   
+[Boeh12]: Ханс Боэм https://archive.is/20121203003033/http://www.hpl.hp.com/personal/Hans_Boehm/   
 [Card80]: Luca Cardelli, The ML Abstract Machine. https://smlfamily.github.io/history/Cardelli-ML-abstract-machine-1980.pdf   
 [Card82a]: EDINBURGH ML by Luca Cardelli, March, 1982. A README file accompanying the distribution of Cardelli's ML Compiler for VAX-VMS. https://smlfamily.github.io/history/Cardelli-Edinburgh-ML-README-1982_03.pdf   
 [Card82b]: Luca Cardelli, Differences between VAX and DEC-10 ML. March, 1982. https://smlfamily.github.io/history/Cardelli-mlchanges_doc-1982_03.pdf   
@@ -722,11 +926,15 @@ Fairbairn + Wray
 [Clac85]: Clack, C., Peyton Jones, S.L. (1985). Strictness analysis — a practical approach. In: Jouannaud, JP. (eds) Functional Programming Languages and Computer Architecture. FPCA 1985. Lecture Notes in Computer Science, vol 201. Springer, Berlin, Heidelberg. doi:10.1007/3-540-15975-4_28   
 [Cousot]: Cousot, Patrick. “The Contributions of Alan Mycroft to Abstract Interpretation.”   
 [Dama84]: Luís Damas. “Type assignment in programming languages.” (1984).   
+[Deme78]: Alan Demers, James Donahue, and Glenn Skinner. 1978. Data types as values: polymorphism, type-checking, encapsulation. In Proceedings of the 5th ACM SIGACT-SIGPLAN symposium on Principles of programming languages (POPL '78). Association for Computing Machinery, New York, NY, USA, 23–30. doi:10.1145/512760.512764   
+[Deme80]: Alan J. Demers and James E. Donahue. 1980. The Russell Semantics: An Exercise in Abstract Data Types. Technical Report. Cornell University, USA.   
+[Demers]: Alan J. Demers https://www.cs.cornell.edu/annual_report/99-00/Demers.htm   
 [Dybv06]: R. Kent Dybvig. 2006. The development of Chez Scheme. In Proceedings of the eleventh ACM SIGPLAN international conference on Functional programming (ICFP '06). Association for Computing Machinery, New York, NY, USA, 1–12. doi:10.1145/1159803.1159805   
 [Fair82]: Fairbairn, Jon. Ponder and its type system. Technical Report Number 31 University of Cambridge, Computer Laboratory UCAM-CL-TR-31 November 1982 DOI: 10.48456/tr-31 https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-31.pdf   
 [Fair85]: Fairbairn, Jon. Design and implementation of a simple typed language based on the lambda-calculus. No. UCAM-CL-TR-75. University of Cambridge, Computer Laboratory, 1985. doi:10.48456/tr-75   
 [Fair86]: Jon Fairbairn, A new type-checker for a functional language, Science of Computer Programming, Volume 6, 1986, Pages 273-290, doi:10.1016/0167-6423(86)90027-4   
 [Gord80]: Michael Gordon, Locations as first class objects in ML. https://smlfamily.github.io/history/Gordon-ML-refs-1980.pdf   
+[Gord82]: Mike Gordon, Larry Paulson, 1982-11-03 in Polymorphism Vol 1 part 1 Jan 83   
 [Holm98]: Holmevik, Jan Rune. "Compiling Simula: A historical study of technological genesis." (1998) https://staff.um.edu.mt/jskl1/simula.html   
 [Hugh82]: Hughes, John. Graph reduction with super-combinators. PRG28. Oxford University Computing Laboratory, Programming Research Group, 1982.   
 [Hugh82b]: R. J. M. Hughes. 1982. Super-combinators a new implementation method for applicative languages. In Proceedings of the 1982 ACM symposium on LISP and functional programming (LFP '82). Association for Computing Machinery, New York, NY, USA, 1–10. DOI:10.1145/800068.802129   
@@ -742,9 +950,12 @@ SIGPLAN '84: Proceedings of the 1984 SIGPLAN symposium on Compiler construction 
 [MacQ82]: D. B. MacQueen and Ravi Sethi. 1982. A semantic model of types for applicative languages. In Proceedings of the 1982 ACM symposium on LISP and functional programming (LFP '82). Association for Computing Machinery, New York, NY, USA, 243–252. doi:10.1145/800068.802156   
 [MacQ14]: Luca Cardelli and the Early Evolution of ML, by David MacQueen. A paper presented at the Luca Cardelli Fest at Microsoft Research Cambridge on Sept. 8, 2014.   
 [MacQ15]: MacQueen, David B. The History of Standard ML: Ideas, Principles, Culture https://www.youtube.com/watch?v=NVEgyJCTee4   
+[Matt83]: Matthews, David Charles James. Programming language design with polymorphism. No. UCAM-CL-TR-49. University of Cambridge, Computer Laboratory, 1983.   
+[Matt85]: David C. J. Matthews. 1985. Poly manual. SIGPLAN Not. 20, 9 (August 1985), 52–76. doi:10.1145/988364.988371   
 [McKus]: Marshall Kirk McKusick. A BERKELEY ODYSSEY: Ten years of BSD history.   
 [Miln93]: Frenkel, Karen A. and Robin Milner. “An interview with Robin Milner.” Commun. ACM 36 (1993): 90-97. DOI:10.1145/151233.151241   
 [Miln2003]: interview with Robin Milner, held in Cambridge on the 3. September 2003 http://users.sussex.ac.uk/~mfb21/interviews/milner/   
+[Modula3]: MODULA-3 authors https://www.cs.purdue.edu/homes/hosking/m3/reference/authors.html   
 [Mycr80]: Mycroft, A. (1980). The theory and practice of transforming call-by-need into call-by-value. In: Robinet, B. (eds) International Symposium on Programming. Programming 1980. Lecture Notes in Computer Science, vol 83. Springer, Berlin, Heidelberg. doi:10.1007/3-540-09981-6_19   
 [Mycr16]: Alan Mycroft, Mini CV https://www.cl.cam.ac.uk/~am21/minicv.txt   
 [Nebe83]: Nebel, B. (1983). Ist Lisp Eine ‘Langsame’ Sprache?. In: Neumann, B. (eds) GWAI-83. Informatik-Fachberichte, vol 76. Springer, Berlin, Heidelberg. https://doi.org/10.1007/978-3-642-69391-5_3   
