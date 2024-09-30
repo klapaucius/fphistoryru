@@ -44,6 +44,8 @@
       - [ALFL](#alfl)
       - [Компиляция ALFL](#компиляция-alfl)
     - [Этого имени я не слышал уже давно](#этого-имени-я-не-слышал-уже-давно)
+  - [Ржавый пояс](#ржавый-пояс)
+    - [Машины освобождения](#машины-освобождения)
 - [Литература](#литература)
 
 
@@ -1427,16 +1429,90 @@ map([1 2 3], procedure(x,y); x + y endprocedure(%z%))
 Так что Гибсон добавил в виртуальную машину стек продолжений и прочие нужные для имплементации Пролога вещи. Новый компилятор назвали POPLOG. Название больше не менялось но языки продолжили добавлять. Сначала новые языки имплементировались с помощью макросистемы. Затем некоторые из них получали более качественную поддержку компилятора и ВМ и попадали в базовый комплект поставки.   
 Следующим после Пролога языком, который имплементировал POPLOG, стал Лисп. Джон Каннингем (Jon Cunningham) имплементировал подмножество MacLisp. Но эпоха MacLisp подходила к концу, начиналась эра Common Lisp. И в 83-ем году, не дожидаясь окончания работы над описанием Common Lisp, имплементаторы POPLOG начали работу над имплементацией Common Lisp. И, что более важно для нашей истории, добавлением в виртуальную машину поддержки лексической видимости, которую требовал функциональный Лисп. Но это уже другая история.   
 
+## Ржавый пояс
+
+Рассказ о первых компиляторах функциональных языков подошел к концу. И читателю может показаться странным, что некоторые важные имплементаторы ФЯ, такие как Тернер и Дарлингтон, не сыграли в этом рассказе заметной роли. В следующей части они вернутся как, возможно, даже более важные деятели, чем они были в 70-е. Когда придуманные ими языки станут образцами для всех прочих функциональных языков и важные герои этой части начнут переделывать имплементации своих собственных языков в имплементации этих образцовых языков.   
+Но почему им вообще нужно возвращаться? Где они пропадали? Они не сыграли роли в _этом_ рассказе потому, что были заняты. Играли роль в другом рассказе. Которому еще только предстоит найти своего рассказчика. Мы не претендуем на хоть сколько-нибудь полное его изложение.   
+История специального аппаратного обеспечения для имплементации ФЯ попала под сокращение, когда мы пытались ограничить объем нашей работы. Исключив из подробного рассмотрения совсем уж неуспешные, даже по меркам функционального программирования, направления. Да, создание специального железа для имплементации ФЯ не было успешным направлением, мы не боимся испортить сюрприз. Неуспешность слишком очевидна, сохранить интригу все равно не удалось бы.   
+Конечно, как и в случае с историей Лиспа, полностью исключить историю специальных машин для функционального программирования мы не можем. Во-первых, потому, что это направление дало нам множество важных имплементаторов ФЯ-компиляторов для железа обычного. Таких как Саймон Пейтон Джонс, например. Во-вторых, для того, чтоб продемонстрировать преимущества специальных машин, работающие над ними создавали и имплементации тех же языков для машин обычных. Одни из важнейших имплементаций ФЯ имеют именно такое происхождение. В-третьих, даже так и не создавшие важных имплементаций для обычных машин машинисты поучаствовали в создании современных ФЯ. Примерно как Лисп-машинисты поучаствовали в создании Common Lisp.   
+Так что имейте в виду, что параллельно более-менее уверенному шествию к какому-никакому но успеху компиляторов ФЯ для обычного, массового железа, тянется кладбище идей и машин, с которого мы будем иногда получать весточки. Такие, как эта глава.   
+Важно отметить, что в описываемые времена обитатели этого кладбища еще не знали, что это кладбище. Наоборот, как и Лисп-машины в среде лисперов, это направление считалось основным [John2004]. В особенности - имплементаторами ленивых ФЯ. Так что Августссон, Йонссон и прочие имплементаторы ФЯ на обычном железе считали нужным оправдываться [Augu89], почему они работают над такими странными вещами, а не в машинном мейнстриме.   
+Почему машинное направление считалось основным? Во всем виноват Джон Бэкус.   
+
+### Машины освобождения
+
+> Исследовательское направление имеет право на существование, но страдает от агрессивного преувеличения его значения Бэкусом. Задолго до того, как получены убедительные результаты.   
+> Эдсгер Дейкстра, Обзор Тьюринговской лекции Джона Бэкуса. [Dijk78]
+
+> К этому времени я получил почетное членство от IBM. Так что я мог делать все, что захочу.   
+> Джон Бэкус [Back20]   
+
+Джон Бэкус получил премию Тьюринга 77-го года за FORTRAN и спецификацию ALGOL, но обрушился на фортраны и алголы с уничтожающей критикой в своей тьюринговской лекции "Может ли программирование быть освобождено от стиля Фон-Неймана?" [Back78]. Эта лекция наиболее известная, но не единственная попытка Бэкуса донести свое недовольство фортранами и алголами до программистов. Бэкус, например, вставил похожую критику прямо в свою статью по истории Фортрана [Back78b].   
+Языки программирования большие, сложные и негибкие, утверждает Бэкус. Их ограниченная выразительность не может оправдать их размер. В отличие от некоторых других авторов Алгола, Бэкус не ограничивается такой расплывчатой критикой разбухающих без особого толка фортранов и алголов и переходит к конкретике.   
+Фон-Неймановские компьютеры построены вокруг бутылочного горлышка: соединения между памятью и центральным процессором, пересылающего одно слово за раз. И обычные языки программирования построены вокруг этого пропихивания слова за словом через бутылочное горлышко, а не вокруг оперирования более крупными "концептуальными единицами". Обычные ЯП - тонкие обертки абстракции вокруг Фон-Неймановской машины, `:=` - языковое бутылочное горлышко Фон-Неймана.   
+Бэкус предлагает рассмотреть такой вот код на Алголе:   
+
+```pascal
+c := 0
+for i := 1 step 1 until n do
+  c := c + a[i]*b[i]
+```
+
+Что именно его тут не устраивает? Операторы, работающие с невидимым состоянием по сложным правилам. Код не конструирует сложные объекты из простых. Код "динамический" и многословный, нужно выполнить в уме, чтоб понять, что происходит. Код работает с одним словом за раз. Код необобщенный, работает только с вектором размером `n`. Аргументы имеют названия и для обобщения потребуется многословное объявление функции. Служебные действия рассыпаны по коду и не позволяют обобщения обхода векторов, которые каждый раз нужно писать заново.   
+И у Бэкуса даже есть решение всех этих проблем. По крайней мере, концепция решения. Конечно же, как можно догадаться уже из того, что именно Бэкус считает проблемой, решение - это "функциональное" программирование. Но не функциональное программирование Обоекембриджской ветви или Эдинбургской программы. Это довольно самобытное "функциональное" программирование происходящее из APL, в наше время представленное языком j.   
+
+```
+Def Innerproduct ≡ (Insert +)∘(ApplyToAll ×)∘Transpose
+```
+
+или, если использовать укороченные варианты операций
+
+```
+Def IP ≡ (/+)∘(⍺×)∘Trans
+```
+
+что примерно соответствует такому вот коду на Хаскеле
+
+```haskell
+innerproduct = foldr1 (+) . map (foldr1 (*)) . transpose
+```
+
+Что Бэкус называет преимуществами такого кода? Код работает только с аргументами, нет скрытого состояния со сложными правилами перехода от одного состояния к другому. Более сложная функция компонуется функциональными формами из более простых функций. Код "статический" и немногословный, структура позволяет понять его без исполнения в уме. Код оперирует "концепциями", а не отдельными машинными словами. Код обобщенный. Машинерия для обхода векторов абстрагирована в общеполезные операции и её не нужно переписывать снова и снова. Из-за близости к Фон-Неймановской машине, утверждает Бэкус, обычные языки программирования имеют слишком негибкий "фреймворк" и потому не могут быть исправлены.   
+Сразу бросается в глаза, что многие конкретные претензии предъявлены к очень конкретным алголам и фортранам, очень узкому пониманию императивного программирования. Уже ко времени лекции Бэкуса эта узость была расширена и многие ограничения были отдельными алголами преодолены. Например, в _обычных языках_ Бэкуса нельзя использовать "комбинирующие формы" потому, что результат выражения может быть только одним машинным словом.   
+Но Бэкус использует и вполне современные возражения функциональных программистов о том, что "Фон-Неймановским языкам" не хватает полезных свойств для рассуждения о свойствах программ.   
+Но что это за "комбинирующие формы", они же "функциональные формы", которые не возможны в обычных языках? Это композиция, `Insert` и `ApplyToAll` и некоторые другие "ФВП", которые комбинируют существующие функции для получения новых. Обратите внимание: "функциональные формы", а не функции.   
+Дело в том, что "функциональный" APL Бэкуса под названием FP не является в полной мере функциональным. Бэкус изобрел третий способ неправильной имплементации ФЯ. Программист на его языке не может объявить собственную ФВП. Все ФВП, которые когда-нибудь могут программисту понадобится уже определены Бэкусом как _функциональные формы_.   
+Бэкус знаком с функциональным программированием практически настолько хорошо, насколько можно было в 77-ом году. Бэкус ссылается статью Ландина про SECD. Ссылается на книгу Берджа. И, по видимому, Бэкус сыграл существенную роль в её популяризации. Ссылается на статьи Хендерсона и Морриса про ленивый вычислитель и Фридмана и Уайза про ленивый `cons`. На GEDANKEN, другие работы Рейнольдса. На МакКарти, Вюийемена, Скотта, Стрейчи, Черча и Карри. Бэкус обращался за советами и замечаниями к нашим героям Циллесу, Джеймсу Моррису, Рейнольдсу.   
+По видимому [Back20], Бэкус не начинал со всех этих знаний, а обнаружил их в процессе, как Келлер. Но, в отличие от Келлера, обнаружившего, что он переизобретает ISWIM, Бэкус вовсе не переизобретал ISWIM. Так что не-ISWIM Бэкуса сохранил свою самобытность более продолжительное время.   
+И если традиционные языки программирования по мнению Бэкуса слишком ограничены, то традиционное функциональное программирование ограничено недостаточно. Лямбда-исчисление описывается простыми правилами, но у этих простых правил сложные для понимания следствия. Эту критику ЛИ Бэкус обосновывает историей фунарг-проблем лисперов, которые сначала не поняли ЛИ, а потом долго и упорно его друг другу объясняли. Такая критика напоминает более позднюю критику монад. Если монада - это так просто, то почему так много монадных туториалов?   
+Бэкус сравнивает возможность писать ФВП с неограниченными операторами для контроля исполнения в обычных до-структурных языках. Буквально Стиловское и Сассмановское утверждение о том, что лямбда - это высшая ступень в развитии `GOTO`, но только в этот раз как будто это что-то плохое.   
+К счастью, эта критика ФВП не нашла особой поддержки. Это отношение разработчиков FP к ФВП поменялось и в 80-е появились расширения FP [Arvi84], разрешающие написание собственных ФВП, в том числе и от самого Бэкуса [Will88].   
+Келлер, по видимому, позаимствовал у Бэкуса синтаксис для применения функций в FEL. И от этого синтаксиса в языке Келлера происходит оператор `:` в ALFL и, затем, оператор `($)` в Хаскеле и его аналоги в некоторых других языках. Лекция Бэкуса также популяризировала point-free стиль. Но только популяризировала, такой подход был известен и до того и встречается еще 60-е у Берджа и Ландина, но встречается не часто.   
+Спустя десятилетие, в своей ранней истории ФП [Huda89] Худак констатирует, что язык Бэкуса FP не оказал существенного влияния на то, какие фичи будут в функциональных языках.   
+Но, хотя авторы функциональных языков не особенно хотели делать свой язык таким как FP Бэкуса, они хотели ссылаться на его лекцию. Которая поэтому стала одной из самых цитируемых статей о ФП. Худак объясняет это тем, что это первая известная статья превозносящая ФП. Не только объясняющая, что функциональное программирование - это "хорошо", но и то, что императивное программирование - это "плохо". Через несколько лет, конечно, появились и другие, о которых мы расскажем в следующей части.   
+Критика ФП Бэкусом и сравнение ФВП с `GOTO` не осталась незамеченной Худаком [Huda89]. Но Худак отмечает, что обычно эта критика как раз таки остается незамеченной. И он считает, что общий посыл Бэкуса все равно в поддержку ФП. Просто в поддержку ФП с использованием небольшого набора стандартных комбинаторов.   
+В начале 80-х Тернер считал [Turn82] лекцию Бэкуса началом новой эпохи, но в наши дни Тернер в своей истории ФП [Turn12] уже не придает такого значения лекции Бэкуса. Зато авторы истории Хаскеля [Huda07] посчитали её достаточно важной, чтоб начать историю с неё. Благодаря поддержке "гиганта" программирования Бэкуса, пишут Худак и др., функциональное программирование стало известно как "практичный инструмент", а не "математический курьез". 
+Худак утверждает [Huda89], что реклама ФП от автора Фортрана - это "лучшее, что могло случится с ФП". Мы же в этом совсем не уверены. Потому, что вместе с функциональным программированием Бэкус популяризировал и не самую полезную для функционального программирования идею. Для некоторых ФЯ она оказалась даже смертельной.   
+Если своему свободному от проклятья Фон-Неймана языку Бэкус уделяет много внимания в своей версии лекции для публикации на сто страниц, то машинам, которые должны поддержать это освобождение уделяется гораздо меньше внимания. Бэкус отмечает как перспективные и анти-Фон-Неймановские машину Маго и работы Арвинда, к которым мы еще вернемся. Но читателям Бэкуса было достаточно общей идеи, машины они изобретут самостоятельно.   
+Идея о том, что плохие свойства языков программирования обусловлены неправильной машиной и для того, чтоб использовать хорошие языки нужны специальные правильные машины, не выглядит такой уж обоснованной из наших дней. Не выглядела она такой и для некоторых современников [Dijk78]. Но в конце 70-х она овладела умами многих функциональных программистов.   
+Во времена лекции Бэкуса Пейтон Джонс учился в Кембридже вместе со своим знакомым еще со школы Томасом Кларком (Thomas J. Clarke), и уже поучаствовавшими в нашей истории Хьюзом и Джоном Фейрберном.   
+Программы нужно писать в функциональном стиле, пересказывает Пейтон Джонс [SPJ18] послание Бэкуса, более того, нужно создавать новые компьютеры для исполнения таких программ.   
+И, может быть, это не самая лучшая идея, которую можно принести из 70-х в 80-е. В десятилетие, когда массовое железо, благодаря масштабам этой самой массовости, будет с каждым годом становиться все быстрее, дешевле и, следовательно, еще более массовым.   
+
 ПРОДОЛЖЕНИЕ СЛЕДУЕТ
 
 Литература
 ==========
 
 [ALGOL80]: AB45.4.2 ALGOL 68 Implementations - ALGOL 68C - Release 1, Algol Bulletin No. 45, January 1980 http://archive.computerhistory.org/resources/text/algol/algol_bulletin/A45/P42.HTM   
+[Arvi84]: Arvind, Brock, J. D. and Pingali, K. "FP1.5: Backus' FP with higher order functions", M.I.T. Lab. for Computer Science, (Unpublished 1984)   
 [Augu84]: Lennart Augustsson, A compiler for lazy ML. LFP '84: Proceedings of the 1984 ACM Symposium on LISP and functional programming August 1984 Pages 218–227 doi:10.1145/800055.802038    
 [Augu89]: L. Augustsson, T. Johnsson, The Chalmers Lazy-ML Compiler. In The Computer Journal, Volume 32, Issue 2, 1989, Pages 127–141 DOI:10.1093/comjnl/32.2.127   
 [Augu21]: The Haskell Interlude 02: Lennart Augustsson https://www.buzzsprout.com/1817535/9286902   
 [Augu23]: Lennart Augustsson - MicroHaskell https://www.youtube.com/watch?v=Zk5SJ79nOnA   
+[Back78]: John Backus. 1978. Can programming be liberated from the von Neumann style? a functional style and its algebra of programs. Commun. ACM 21, 8 (Aug. 1978), 613–641. doi:10.1145/359576.359579   
+[Back78b]: John Backus. 1978. The history of FORTRAN I, II, and III. SIGPLAN Not. 13, 8 (August 1978), 165–180. doi:10.1145/960118.808380   
+[Back20]: Turing Awardee Clips. Backus on functional programming. https://www.youtube.com/watch?v=OxuPZXXiwKk   
 [Birr77]: Andrew Birrell. System Programming in a High Level Language. Ph.D. Thesis, University of Cambridge. December 1977.   
 [Boeh80]: Boehm, Hans-J., Alan J. Demers, and James E. Donahue. An informal description of Russell. Cornell University, 1980.   
 [Boeh85]: Boehm, H.-J. (1985). Partial polymorphic type inference is undecidable. 26th Annual Symposium on Foundations of Computer Science (sfcs 1985). doi:10.1109/sfcs.1985.44   
@@ -1467,6 +1543,7 @@ map([1 2 3], procedure(x,y); x + y endprocedure(%z%))
 [Deme78]: Alan Demers, James Donahue, and Glenn Skinner. 1978. Data types as values: polymorphism, type-checking, encapsulation. In Proceedings of the 5th ACM SIGACT-SIGPLAN symposium on Principles of programming languages (POPL '78). Association for Computing Machinery, New York, NY, USA, 23–30. doi:10.1145/512760.512764   
 [Deme80]: Alan J. Demers and James E. Donahue. 1980. The Russell Semantics: An Exercise in Abstract Data Types. Technical Report. Cornell University, USA.   
 [Demers]: Alan J. Demers https://www.cs.cornell.edu/annual_report/99-00/Demers.htm   
+[Dijk78]: Dijkstra, Edsger Wybe. A review of the 1977 Turing Award Lecture by John Backus https://www.cs.utexas.edu/~EWD/transcriptions/EWD06xx/EWD692.html   
 [Dybv06]: R. Kent Dybvig. 2006. The development of Chez Scheme. In Proceedings of the eleventh ACM SIGPLAN international conference on Functional programming (ICFP '06). Association for Computing Machinery, New York, NY, USA, 1–12. doi:10.1145/1159803.1159805   
 [Fair82]: Fairbairn, Jon. Ponder and its type system. Technical Report Number 31 University of Cambridge, Computer Laboratory UCAM-CL-TR-31 November 1982 DOI: 10.48456/tr-31 https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-31.pdf   
 [Fair85]: Fairbairn, Jon. Design and implementation of a simple typed language based on the lambda-calculus. No. UCAM-CL-TR-75. University of Cambridge, Computer Laboratory, 1985. doi:10.48456/tr-75   
@@ -1486,6 +1563,8 @@ map([1 2 3], procedure(x,y); x + y endprocedure(%z%))
 [Holm98]: Holmevik, Jan Rune. "Compiling Simula: A historical study of technological genesis." (1998) https://staff.um.edu.mt/jskl1/simula.html   
 [Huda83]: Paul Hudak and David Kranz. 1984. A combinator-based compiler for a functional language. In Proceedings of the 11th ACM SIGACT-SIGPLAN symposium on Principles of programming languages (POPL '84). Association for Computing Machinery, New York, NY, USA, 122–132. doi:10.1145/800017.800523   
 [Huda84]: Hudak, Paul. ALFL Reference Manual and Programmer's Guide. Yale University, Department of Computer Science, 1984.   
+[Huda89]: Paul Hudak. 1989. Conception, evolution, and application of functional programming languages. ACM Comput. Surv. 21, 3 (Sep. 1989), 359–411. DOI:10.1145/72551.72554   
+[Huda07]: Paul Hudak, John Hughes, Simon Peyton Jones, and Philip Wadler. 2007. A history of Haskell: being lazy with class. In Proceedings of the third ACM SIGPLAN conference on History of programming languages (HOPL III). Association for Computing Machinery, New York, NY, USA, 12–1–12–55. DOI:10.1145/1238844.1238856   
 [Huda2012]: Paul R. Hudak, CV https://www.cs.yale.edu/homes/hudak/Resumes/vita.pdf   
 [Huet]: Gérard Huet, biography https://gallium.inria.fr/~huet/biography.html   
 [Huet86]: Huet, G. (1986). Theorem proving systems of the Formel project. In: Siekmann, J.H. (eds) 8th International Conference on Automated Deduction. CADE 1986. Lecture Notes in Computer Science, vol 230. Springer, Berlin, Heidelberg. doi:10.1007/3-540-16780-3_138   
@@ -1500,6 +1579,7 @@ map([1 2 3], procedure(x,y); x + y endprocedure(%z%))
 SIGPLAN '84: Proceedings of the 1984 SIGPLAN symposium on Compiler construction June 1984 Pages 58–69 doi:10.1145/502874.502880   
 [John85]: Johnsson, T. (1985). Lambda lifting: Transforming programs to recursive equations. In: Jouannaud, JP. (eds) Functional Programming Languages and Computer Architecture. FPCA 1985. Lecture Notes in Computer Science, vol 201. Springer, Berlin, Heidelberg. doi:10.1007/3-540-15975-4_37   
 [John95]: Thomas Johnsson. Graph reduction, and how to avoid it. In Electronic Notes in Theoretical Computer Science Volume 2, 1995, Pages 139-152 DOI:10.1016/S1571-0661(05)80191-4   
+[John2004]: Thomas Johnsson. 2004. Efficient compilation of lazy evaluation. SIGPLAN Not. 39, 4 (April 2004), 125–138. doi:10.1145/989393.989409   
 [Joy86]: Joy, William N., Susan L. Graham, Charles B. Haley, Marshall Kirk McKusick, and Peter B. Kessler. "Berkeley Pascal User’s Manual Version 3.1− April 1986.   
 [Kell80]: Robert M. Keller. 1980. Divide and concer: Data structuring in applicative multiprocessing systems. In Proceedings of the 1980 ACM conference on LISP and functional programming (LFP '80). Association for Computing Machinery, New York, NY, USA, 196–202. doi:10.1145/800087.802806   
 [Kell82]: Keller, RobertM. "FEL: An Experimental Applicative Language." 情報処理学会研究報告プログラミング (PRO) 1982, no. 49 (1982-PRO-003) (1982): 73-79.   
@@ -1537,6 +1617,7 @@ SIGPLAN '84: Proceedings of the 1984 SIGPLAN symposium on Compiler construction 
 [SERC83]: DISTRIBUTED INTERACTIVE COMPUTING NOTE 781 https://www.chilton-computing.org.uk/acd/pdfs/dic/dic781.pdf   
 [Shiv2001]: Olin Shivers, History of T https://paulgraham.com/thist.html   
 [Slom89]: Sloman, Aaron. "The Evolution of Poplog and Pop-11 at Sussex University." POP-11 Comes of Age: The Advancement of an AI Programming Language (1989): 30-54.   
+[SPJ18]: People of Programming Languages. An interview project in conjunction with POPL 2018. Interview with Simon Peyton-Jones http://www.cs.cmu.edu/~popl-interviews/peytonjones.html   
 [Stal2002]: Richard Stallman. My Lisp Experiences and the Development of GNU Emacs. https://www.gnu.org/gnu/rms-lisp.html   
 [Stee82]: Guy L. Steele. 1982. An overview of COMMON LISP. In Proceedings of the 1982 ACM symposium on LISP and functional programming (LFP '82). Association for Computing Machinery, New York, NY, USA, 98–107. doi:10.1145/800068.802140   
 [Stee96]: Guy L. Steele and Richard P. Gabriel. 1996. The evolution of Lisp. Uncut draft.   
@@ -1545,4 +1626,7 @@ SIGPLAN '84: Proceedings of the 1984 SIGPLAN symposium on Compiler construction 
 [Thom78]: C. Thomson. ALGOL 68 Compiler for IBM S/370. Announcement. SIGPLAN Notices, Volume 13, Number 11 (November 1978), page 11.   
 [TMail]: T mailing list archive. http://people.csail.mit.edu/riastradh/t/tmail.tar.bz2   
 [Turn79]: Turner, D. A. (1979). A new implementation technique for applicative languages. Software: Practice and Experience, 9(1), 31–49. doi:10.1002/spe.4380090105   
+[Turn82]: Turner, D.A. (1982). Recursion Equations as a Programming Language. In: Darlington, John, David Turner and Peter B. Henderson. “Functional Programming and its Applications: An Advanced Course.”   
+[Turn12]: Turner DA. Some history of functional programming languages. In International Symposium on Trends in Functional Programming 2012 Jun 12 (pp. 1-20). Springer, Berlin, Heidelberg.   
+[Will88]: J. H. Williams and E. L. Wimmers. 1988. Sacrificing simplicity for convenience: Where do you draw the line? In Proceedings of the 15th ACM SIGPLAN-SIGACT symposium on Principles of programming languages (POPL '88). Association for Computing Machinery, New York, NY, USA, 169–179. doi:10.1145/73560.73575   
 [Wray86]: Wray, Stuart Charles. Implementation and programming techniques for functional languages. No. UCAM-CL-TR-92. University of Cambridge, Computer Laboratory, 1986. DOI: 10.48456/tr-92   
