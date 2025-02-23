@@ -10,6 +10,7 @@
 [текст на github](https://github.com/klapaucius/fphistoryru)  
 [обсудить на github](https://github.com/klapaucius/fphistoryru/discussions)  
 [обсудить в telegram](https://t.me/hateHaskellers)   
+[поддержать проект](https://boosty.to/fphistory/donate)   
 
 ---------------------------
 
