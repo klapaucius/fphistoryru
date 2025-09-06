@@ -31,6 +31,8 @@
     - [Пираты Кремниевой Долины](#пираты-кремниевой-долины)
     - [Дети Дюны](#дети-дюны)
     - [Отец с атомным сердцем](#отец-с-атомным-сердцем)
+  - [Big in Japan](#big-in-japan)
+    - [Успели забыть о Прологе больше, чем японцы успели узнать](#успели-забыть-о-прологе-больше-чем-японцы-успели-узнать)
 - [Литература](#литература)
 
 
@@ -973,13 +975,14 @@ Cambridge LCF и, естественно, Cambridge ML и Rutherford SML в ЛР
 | Poplog ML [Berr90]                    |   25 ?   |
 | Le LML [Maun86]                       |   16.0   |
 | Edinburgh ML [Augu89]                 |   13.5   |
-| _LCF/ML_ [Augu84]                     | **1.00** |
+| _LCF/ML_ [Augu84]                     |   1.00   |
 
+```
 Le ML (CAML) [Maun86]
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 SML/NJ 0.18 [Augu89]
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-_C_ [Augu89]
+C [Augu89]
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 ANU ML (VAX ML) [Augu84]
 ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
@@ -995,8 +998,9 @@ Le LML [Maun86]
 ░░░░░░░░
 Edinburgh ML [Augu89]
 ░░░░░░░
-_LCF/ML_ [Augu84]
+LCF/ML [Augu84]
 ░
+```
 
 Разумеется, основной микробенчмарк для оценки производительности ФЯ 80-х не особенно хорошо подходит для такой оценки. С появлением более-менее серьезного кода на этих языках стало возможно более качественное сравнение, которое поменяло взаимное расположение имплементаций в этом рейтинге. Но это уже тема следующей части.   
 
@@ -1060,6 +1064,59 @@ Franz существовала на совсем другом уровне. Дж
 И когда KCL перестал обновляться, пришлось Шелтеру разрабатывать набор патчей для него - Austin Kyoto Common Lisp. Пока CMUCL не начал поддерживать хоть какие-то актуальные для академии платформы, вся экосистема открытого кода на Common Lisp держалась на одном человеке.   
 Так что технически компиляция ФЯ через Common Lisp была возможна, но возможность эта была пока что не особенно привлекательна. Так что имплементаторы ФЯ желающие использовать Лисп рассматривали и другие варианты. Но это уже другая история.   
 
+Big in Japan
+------------
+
+> Срочный, захватывающий и грамотный репортаж о головокружительном будущем компьютерной революции.   
+> San Francisco Chronicle   
+
+> Это не просто вторая компьютерная революция, это важнейшая из двух.   
+> Эдвард Фейгенбаум [Feig83]   
+
+> УЛЕТ, ОТПАД!   
+> The New York Times   
+
+> Настоятельно рекомендуем... должно быть прочитано каждым, кого интересует экономическое и технологическое будущее.   
+> Library Journal   
+
+В прошлой части мы оставили создателей (симуляторов) специализированного железа в не самое лучшее для них время. Но перед тем, как дела у них пошли совсем уж плохо, ситуация ненадолго улучшились. Помощь пришла из Японии.   
+Еще в 79-ом году в Министерстве международной торговли и промышленности Японии (Ministry of International Trade and Industry) появилось желание начать амбициозный проект по созданию компьютера нового поколения [Shap83]. Следующее поколение выходило пятым, так этот проект впоследствии и стали называть. По видимому, это была реакция на обсуждения "кризиса программного обеспечения" и стартовавшие в 77-79-ом проекты, о которых мы уже рассказывали.   
+Министерство выяснило, что считает компьютером будущего индустрия. Оказалось, что в индустрии считают, что это графическая рабочая станция с большой памятью для микрокода вроде тех, что сделали в лабораториях Xerox. И сеть будущего - это Ethernet.   
+Тут они были правы, в 80-е многие делали рабочие станции и даже персональные компьютеры верхнего ценового диапазона вроде Макинтоша, на которые явно повлияли эти машины. Микрокодовый аспект, правда, не был важным. Но этот ответ не понравился министерству.   
+И дело не в том, что для успеха нужно пробовать что-то новое, а не пытаться сделать лучше то, что уже кто-то делает. Предыдущие программы министерства как раз направляли такое догоняющее развитие и были успешны. Может быть, слишком успешны. Потому, что сформировали стереотип, который министерство хотело сломать новой программой.   
+Для того чтоб продолжать заниматься тем, чем все компьютерные компании занимались и так, помощь министерства промышленности уже не требовалась. Весь смысл был в том, чтоб попробовать по-развивать что-то, что компьютерным компаниям обычно не так интересно. Но что именно? Как мы выяснили в предыдущих главах, придумано уже довольно много вещей, которые компьютерным компаниям не так уж интересны.   
+И работник NTT Мураками Кунио (Kunio Murakami) нашел для министерства промышленности обладателей виденья достаточно амбициозного будущего: это были знакомые его начальника Мото-Ока Тору (Moto-Oka Tohru) и Фути Кадзухиро (Fuchi Kazuhiro). Познакомились они за десятилетия до того в университете в США. И достаточно интересным виденьем будущего, которое они нашли для министерства промышленности, были параллельные компьютеры программируемые на Прологе. У японской промышленность не было никакого энтузиазма, там точно не стали бы заниматься этим, если б не министерство промышленности. У неяпонской промышленности энтузиазма тоже не было. То что надо!   
+Почему параллельные машины программируются именно на Прологе? Фути интересовался МТИ-антипрологом Planner и идеями Ковальского но не считал их особенно практичными. Но в 76-ом году Фурукава Коити (Furukawa Koichi) привез Фути из SRI ксерокопию ксерокопии ксерокопии распечатки FORTRAN-исходников Марсельского интерпретатора Пролога. Восстановленный Фути по распечаткам Марсельский интерпретатор работал быстрее, чем он ожидал и его мнение о практичности идей Ковальского изменилось в лучшую сторону. Мото-Ока решил, что Пролог - язык будущего не только потому, что был знаком с Фути, но и потому, что Пролог полюбили его студенты.   
+Помогло победить Прологу еще и то, что он соревновался не с такими же и даже более экзотическими языками, о которых мы писали в предыдущих главах, а с Лиспом. И Лисп в это время выглядел еще слишком нормальным для министерства промышленности, еще не откололся от унылого мейнстримного будущего рабочих станций.   
+Планы был обнародованы в октябре 81, а проект стартовал в апреле 82-го года. Для осуществления плана был сформирован исследовательский институт ICOT, Фути стал его директором, Мураками - руководителем лаборатории, занимающейся железом, а Фурукава - руководителем лаборатории, занимающейся ПО.   
+Бюджет на 83-ий финансовый год был 11 миллионов долларов ($36.8M в 2025) - полтора проекта MAC 63-его года. За десятилетие получилось 320 миллионов долларов (миллиард долларов 2025-го).   
+Насколько это много? Сотрудник министерства международной торговли и промышленности Накамура посчитал, что не особенно много [Odag97], он утверждает, что каждый год, пока проект продолжался, он никогда не превышал 1% от расходов на R&D японской коммерческой электроники и телекома. И в один только первый год японского проекта по созданию компьютера пятого поколения в IBM потратили на R&D в пять раз больше, чем японцы на весь проект компьютера пятого поколения.   
+Можно согласиться, что это мало для создания компьютера пятого поколения. Но похоже на то, что это существенная поддержка для Пролога. Разумеется, только часть этих средств были потрачены на важные для развития Пролога работы. Но это означает, что в течении десятилетия только в ICOT в лаборатории Фурукавы над программным инструментарием для Пролога постоянно работали 8-10 человек. Что по-видимому сравнимо с вкладом Mozilla в развитие Rust. Конечно, начало такого десятилетия для Пролога было во времена, когда программисты писали по тысяче строк в год, так что сравнимые ресурсы вряд ли давали сравнимый результат.   
+Но даже скромные результаты были нужны для Пролога, который к началу японской инициативы переживал не самые лучшие времена. В это время компилятор Уоррена гибнет вместе с PDP-10. И чтоб начать что-то писать на Прологе в ICOT приходится использовать доживающие последние годы машины DEC, на которых работает единственная серьезная имплементация Пролога.   
+Но мы не пишем историю Пролога. И для нашей истории важнее не японский проект по созданию "компьютера пятого поколения", а реакция на него. А реакция была существенной.   
+Дело в том, что в 80-е, после успехов предыдущих и до потерянных следующих десятилетий, к тому, что считают перспективным в Японии относились серьезно. Первые сообщения о японском проекте не были сфокусированы на Прологе и новости о том, что в Японии считают ИИ перспективным были использованы для того, чтоб вдохнуть новую жизнь во многие проекты. Или правильнее сказать - гальванизировать многие проекты.   
+Дело не ограничивалось Прологом или параллелизмом. Например, Эдвард "Отец экспертных систем" Фейгенбаум (Edward Feigenbaum) и Памела МакКордак (Pamela McCorduck) написали книгу под названием "Пятое поколение: искусственный интеллект и японский компьютерный вызов миру" [Feig83]. Книга вышла в 83-ем, а в 84-ом её переиздали в мягкой обложке, на которой изображена Статуя Свободы в гриме осирои, держащая факел в механической руке. Фейгенбаум "раздувал" японскую угрозу, считает пишущая историю ИИ-стартапов 80-х Филлипс, чтобы напугать своего читателя и подтолкнуть его к действию. Успешно. Что же читатель должен был делать? Разумеется, платить отцу экспертных систем деньги.   
+Он поучаствовал в основании двух компаний [Phil99]. Первая - называвшаяся сначала IntelliGenetics, а позднее IntelliCorp, пыталась коммерциализировать экспертную систему MYCIN, над которой  Фейгенбаум работал в 70-е годы в Стенфорде. Не данные, но саму программу на Лиспе, которую предполагалось наполнять данными пользователя. Этой компании противостояла вторая компания, основанная Фейгенбаумом - Teknowledge. Вторая компания должна была победить первую, продавая более дешевый инструментарий для создания экспертных систем, работающий на более дешевых компьютерах. Как этого можно было добиться? Использовав вместо Лиспа и Пролога новый, перспективный язык для разработки искусственного интеллекта - C. Teknowledge была открывателем и законодателем моды на этот язык среди разработчиков экспертных систем 80-х. Да, успехи по избавлению от ассоциации с ИИ у разных языков и "парадигм" программирования были очень разными.   
+К этой очередной победе лисперов над Лиспом и ее последствиям мы вернемся позднее, а сейчас настала очередь важнейшего для нашей истории ответа на японский вызов. И важнейшим для нашей истории был ответ британцев, которые уже 
+
+### Успели забыть о Прологе больше, чем японцы успели узнать
+
+Великобритания ответила на японскую программу пятого поколения в июне 83-го программой Алви (Alvey). Джон Алви (John Alvey) - это председатель комитета, который рекомендовал ответить. Ответ был размером в 350 миллионов фунтов (1 миллиард 830 миллионов долларов в 2025). Из них 200 были от государства и 150 от коммерческих компаний [Blac85] [Oakl90].   
+Да, это почти в два раза больше средств, потраченных за примерно вдвое меньшее время. Потраченных экономикой меньшего размера, чем японская. И не смотря на все это, история с пятым поколением ассоциируется в основном с Японией.   
+Ответ не предполагал создания специального института, хотя наш знакомый по нулевой части Мики и пытался это организовать.   
+Как обычно, новости из Японии были представлены всеми как убедительное подтверждение того, что им нужно и дальше продолжать делать то, что они и так делали. Правда, новостей о том, что искусственный интеллект объявили чем-то перспективным в Японии, по-видимому, было еще недостаточно для реабилитации его в Британии после отчета Лайтхилла, так что ИИ обычно фигурирует под псевдонимом "интеллектуальные базы знаний", IKBS (Intelligent Knowledge-Based Systems).   
+Кому из героев нашей истории лучше всего удалось убедить, что им нужно продолжать давать деньги на то же самое? Это были создатели (симулятора) HOPE-машины ALICE из Имперского Колледжа Лондона, группа Дарлингтона.   
+В рамках программы Алви разрабатывались четыре проекта, "большие демонстраторы". И компании -  основные исполнители двух из них посчитали (или, может быть отдельные элементы внутри этих компаний посчитали), что им понадобится параллельный компьютер вроде ALICE.  
+ICL занималась системой для министерства здравоохранения, а Plessey - самым амбициозным проектом программы Алви: распознаванием речи.   
+ICL (International Computers Limited) - компания, разрабатывавшая компьютеры на которых использовали POP-2 в Эдинбурге и KRC в Кенте. ICL в 60-е купила компьютерный отдел Ferranti, которая в свое время построила Atlas и Atlas 2, для которых пытались имплементировать CPL. И вот эта компания ICL решила построить для Дарлингтона с коллегами ALICE, которую те только симулировали. И похожий на ALICE, но новый параллельный компьютер, который разрабатывали уже для программы Алви.   
+И благодаря предполагаемой нужности для двух демонстраторов из четырех, проект создания этого компьютера стал самым большим проектом программы Алви. 3 декабря 85-го британский министр промышленности и информационных технологий обнародовал детали [Dett86]. И раз уж проект самый большой - его называли Flagship. Насколько большой? 15.5 миллионов фунтов (80 миллионов долларов в 2025). Новый проект объединял проект ALICE Имперского колледжа Лондона с проектом Университета Манчестера, построившего dataflow-машину MDF.  
+ICL построила три прототипа ALICE. Первый прототип ALICE заработал в феврале 86-го [SPJ87] [Fiel88]. Так ALICE стала реальностью, но реальность эта оказалась не слишком радужной. Реальная машина работала "разочаровывающе медленно" [Clac24].   
+Насколько медленно? nfib-число этой машины было 16000 [Harr87], что немного побыстрее, чем SKIM II, но в два раза медленнее, чем NORMA. И это производительность всей параллельной машины. Один переписыватель графов в ней, более точный аналог SKIM II и NORMA имел nfib-число в 1000.   
+У разочаровывающе медленной работы было несколько причин. Реальная ALICE, которую построили в ICL, существенно отличалась от ALICE, которую задумывали в Имперском Колледже. Предполагалось [Dett86], что сеть, соединяющая вычислительные элементы с памятью будет работать со скоростью 300Мбит/сек., реальный кастомный чип, который переключал соединения между вычислительными элементами мог переключать достаточно быстро, чтоб обеспечить скорость в 150Мбит/сек., а реальные вычислительные элементы, построенные на Transputer, британской компании INMOS могли установить соединение только в 10Мбит/сек. Но такой медленной сети хватало, чтоб продемонстрировать хорошую распараллеливаемость вычисления чисел Фибоначчи потому, что переписыватели графов были очень медленными - интерпретаторами промежуточного языка ALICE ISL (Implementation Specific Language), написанными на OCCAM [Harr87].   
+Эти проблемы можно было исправить, в 86-ом году уже умеют делать переписыватели графов намного быстрее. Но главная проблема ALICE не имела отношения к особенностям имплементации в ICL, она была архитектурной. Даже задуманная сеть в 300 Мбит/c не лучшее средство для соединения вычислительных элементов имеющих только 64Кб локальной памяти с блоками памяти в 2Мб, как это предполагали делать разработчики ALICE.   
+У новой машины Flagship, которую разрабатывали в университете Манчестера и собирались построить в ICL к 88-му году, другая архитектура. В Flagship нет разделения на блоки памяти и вычислительные. У каждого вычислительного блока мегабайты памяти, к которой он имеет более быстрый доступ, чем через сеть к памяти остальных вычислительных блоков. И эксперименты с симулятором показали, что можно добиться 90% обращений к памяти в том же вычислительном блоке вообще без создания нагрузки на сеть для соединения блоков. И вычислительные блоки делались на процессорах MC68020. Пусть не британских, зато быстро работающих.   
+Но для нашей истории, конечно, важнее не эти машины, а что машинистами было сделано полезного для имплементаций на обычном железе.   
+
 ПРОДОЛЖЕНИЕ СЛЕДУЕТ
 
 Литература
@@ -1072,6 +1129,7 @@ Franz существовала на совсем другом уровне. Дж
 [Augu84]: Lennart Augustsson, A compiler for lazy ML. LFP '84: Proceedings of the 1984 ACM Symposium on LISP and functional programming August 1984 Pages 218–227 doi:10.1145/800055.802038   
 [Augu85]: Augustsson, L. (1985). Compiling pattern matching. In: Jouannaud, JP. (eds) Functional Programming Languages and Computer Architecture. FPCA 1985. Lecture Notes in Computer Science, vol 201. Springer, Berlin, Heidelberg. doi:10.1007/3-540-15975-4_48   
 [Berr90]: Dave Berry, COMP.LANG.ML Frequently Asked Questions and Answers 19 Apr 1990   
+[Blac85]: Blackburn,J. F. The Alvey Conference in Edinburgh: A Review of the United Kingdom's Research Program in Computer Science. 1985 Aug 22 https://apps.dtic.mil/sti/tr/pdf/ADA158963.pdf   
 [Boye92]: Robert S. Boyer. Frequently Asked Questions about KCL and AKCL. https://web.cecs.pdx.edu/~mperkows/=LISP/kcl   
 [Burs80]: R. M. Burstall, D. B. MacQueen, and D. T. Sannella. 1980. HOPE: An experimental applicative language. In Proceedings of the 1980 ACM conference on LISP and functional programming (LFP '80). Association for Computing Machinery, New York, NY, USA, 136–143. DOI:10.1145/800087.802799   
 [Caml261]: CAML V2-6.1   
@@ -1087,6 +1145,7 @@ Franz существовала на совсем другом уровне. Дж
 [Card85]: Antonio Albano, Luca Cardelli, and Renzo Orsini. Galileo: a strongly typed, interactive, conceptual language. ACM Transactions on Database Systems (TODS), 10(2):230-260, 1985.   
 [Card86]: Luca Cardelli. Amber. In Guy Cousineau, Pierre-Louis Curien, and Bernard Robinet, editors, Combinators and Functional Programming Languages, Lecture Notes in Computer Science, Vol. 242, pp 21-70. Springer-Verlag, 1986.   
 [Card86b]: Luca Cardelli. The amber machine. In Guy Cousineau, Pierre-Louis Curien, and Bernard Robinet, editors, Combinators and Functional Programming Languages, Lecture Notes in Computer Science, Vol. 242, pp 21-70. Springer-Verlag, 1986.   
+[Clac24]: Christopher D. Clack. Research https://christopherclack.com/research/research-topics   
 [Clar81]: Keith L. Clark and Steve Gregory. 1981. A relational language for parallel programming. In Proceedings of the 1981 conference on Functional programming languages and computer architecture (FPCA '81). Association for Computing Machinery, New York, NY, USA, 171–178. doi:10.1145/800223.806776   
 [CMUCL]: CMUCL: Project history & who's who (2020) https://cmucl.org/credits.html   
 [Cous87]: Cousineau, Guy, P-L. Curien, and Michel Mauny. "The categorical abstract machine." Science of computer programming 8, no. 2 (1987): 173-202.   
@@ -1095,17 +1154,21 @@ Franz существовала на совсем другом уровне. Дж
 [Darl76]: Darlington, J., & Burstall, R. M. (1976). A system which automatically improves programs. Acta Informatica, 6(1). doi:10.1007/bf00263742    
 [Darl81]: John Darlington and Mike Reeve. 1981. ALICE a multi-processor reduction machine for the parallel evaluation CF applicative languages. In Proceedings of the 1981 conference on Functional programming languages and computer architecture (FPCA '81). Association for Computing Machinery, New York, NY, USA, 65–76. doi:10.1145/800223.806764   
 [Darl82]: Darlington J, Henderson P, Turner DA, editors. Functional programming and its applications: an advanced course. CUP Archive; 1982 Feb 18.   
+[Dett86]: Dettmer, Roger. “Flagship. A fifth-generation machine.” Electronics and Power 32 (1986): 203-208.   
 [Dijk81] Dijkstra, E. (1981). Trip report E.W. Dijkstra, Newcastle, 19-25
 July 1981. Dijkstra working note EWD798. https://www.cs.utexas.edu/~EWD/transcriptions/EWD07xx/EWD798.html   
 [Duce86]: D. A. Duce, Software Engineering Research at RAL, 13 February 1986 https://www.chilton-computing.org.uk/inf/pdfs/seg/seg101.pdf   
 [Fate2003]: Souza, Paulo Ney de, Richard J. Fateman, Joel Moses and Clifford W Yapp. “The Maxima Book.” (2003). https://maxima.sourceforge.io/docs/maximabook/maximabook-19-Sept-2004.pdf   
 [Faul84]: Faulkner, T. L., & Pavelin, C. J. (1984). Atlas 10 computer. ICL technical journal, 4, 13-32.   
+[Feig83]: Feigenbaum, Edward A.; McCorduck, Pamela (1983). The fifth generation: artificial intelligence and Japan's computer challenge to the world. Reading, Mass: Addison-Wesley. ISBN 978-0-201-11519-2.   
+[Fiel88]: Anthony J. Field, Peter Harrison - Functional Programming, 1988   
 [Franz]: History of Franz Inc. https://franz.com/about/company.history.lhtml   
 [GEC63]: GEC Series 63 https://www.chilton-computing.org.uk/inf/alvey/p003.htm   
 [Gord82]: Mike Gordon, Larry Paulson, 1982-11-03 in Polymorphism Vol 1 part 1 Jan 83   
 [Gord2000]: Gordon M. From LCF to HOL: a short history. In Proof, language, and interaction 2000 Jul 24 (pp. 169-186).   
 [Gutt81]: John Guttag, James Horning, and John Williams. 1981. FP with data abstraction and strong typing. In Proceedings of the 1981 conference on Functional programming languages and computer architecture (FPCA '81). Association for Computing Machinery, New York, NY, USA, 11–24. doi:10.1145/800223.806758   
 [Harp85]: Robert Harper, Report on the Standard ML Meeting, Edinburgh, May 23-25, 1985. https://smlfamily.github.io/history/Harper-SML-meeting-1985_05.pdf   
+[Harr87]: Harrison, P.G., Reeve, M.J. (1987). The parallel graph reduction machine, ALICE. In: Fasel, J.H., Keller, R.M. (eds) Graph Reduction. GR 1986. Lecture Notes in Computer Science, vol 279. Springer, Berlin, Heidelberg. doi:10.1007/3-540-18420-1_55   
 [Hend80]: Henderson, Peter B.. “Functional programming - application and implementation.” Prentice Hall International Series in Computer Science (1980).   
 [Hoar72]: Hoare, Charles Antony Richard. "Chapter II: Notes on data structuring." In Structured programming, pp. 83-174. 1972.   
 [Hoar75]: Hoare, C.A.R. Recursive data structures. International Journal of Computer and Information Sciences 4, 105–132 (1975). doi:10.1007/BF00976239   
@@ -1117,6 +1180,7 @@ July 1981. Dijkstra working note EWD798. https://www.cs.utexas.edu/~EWD/transcri
 [John85]: Johnsson, T. (1985). Lambda lifting: Transforming programs to recursive equations. In: Jouannaud, JP. (eds) Functional Programming Languages and Computer Architecture. FPCA 1985. Lecture Notes in Computer Science, vol 201. Springer, Berlin, Heidelberg. doi:10.1007/3-540-15975-4_37   
 [John86]: Johnsson, T. (1987). Target code generation from G-machine code. In: Fasel, J.H., Keller, R.M. (eds) Graph Reduction. GR 1986. Lecture Notes in Computer Science, vol 279. Springer, Berlin, Heidelberg. doi:10.1007/3-540-18420-1_53   
 [John87]: Johnsson, Thomas. "Compiling Lazy Functional Language." PhD Thesis, Chalmers University of Technology (1987).   
+[Kean94]: Keane J. A. An overview of the Flagship system. Journal of Functional Programming. 1994;4(1):19-45. doi:10.1017/S0956796800000927   
 [Kess86]: R. R. Kessler, J. C. Peterson, H. Carr, G. P. Duggan, and J. Knell. 1986. EPIC - a retargetable, highly optimizing Lisp compiler. In Proceedings of the 1986 SIGPLAN symposium on Compiler construction (SIGPLAN '86). Association for Computing Machinery, New York, NY, USA, 118–130. doi:10.1145/12276.13323   
 [MacL15]: Rob MacLachlan, History of the CMUCL Project (2015) https://www.cons.org/cmucl/doc/cmucl-history.html   
 [MacQ85]: David MacQueen and Robin Milner. 1985. Record of the Standard ML Meeting, Edinburgh, 6–8 June 1984. Polymorphism: The ML/LCF/Hope Newsletter II, 1 (Jan.), 16. http://lucacardelli.name/Papers/Polymorphism%20Vol%20II,%20No%201.pdf   
@@ -1149,9 +1213,12 @@ July 1981. Dijkstra working note EWD798. https://www.cs.utexas.edu/~EWD/transcri
 [Muss81]: D. Kapur, D. R. Musser, and A. A. Stepanov. 1981. Operators and algebraic structures. In Proceedings of the 1981 conference on Functional programming languages and computer architecture (FPCA '81). Association for Computing Machinery, New York, NY, USA, 59–64. doi:10.1145/800223.806763   
 [Neum90]: Pierre-Louis Neumann, New Caml version in comp.lang.misc, 03/29/90   
 [Nuprl94]: Nuprl 3.2 (26-MAY-94) https://github.com/owo-lang/nuprl-3 https://web.archive.org/web/20220630143027/http://www.cs.cmu.edu/afs/cs/project/ai-repository/ai/areas/reasonng/atp/systems/nuprl/0.html   
+[Odag97]: Odagiri, H., Nakamura, Y., & Shibuya, M. (1997). Research consortia as a vehicle for basic research: The case of a fifth generation computer project in Japan. Research Policy, 26(2), 191–207. doi:10.1016/s0048-7333(97)00008-5   
+[Oakl90]: Brian Oakley and Kenneth Owen. 1990. Alvey: Britain's strategic computing initiative. MIT Press, Cambridge, MA, USA.   
 [Paul96]: Paulson, Lawrence Charles. “ML for the working programmer (2. ed.).” (1996).   
 [Paul22b]: Lawrence Paulson. Memories: Edinburgh ML to Standard ML https://lawrencecpaulson.github.io/2022/10/05/Standard_ML.html   
 [PERQ1]: PERQ History, 1.3. EARLY DAYS http://www.chilton-computing.org.uk/acd/sus/perq_history/part_1/c3.htm   
+[Phil99]: Phillips, Eve Marie. "If it works, it's not AI: a commercial look at artificial intelligence startups." PhD diss., Massachusetts Institute of Technology, 1999.   
 [POP19]: INFORMATION ABOUT POPLOG AND POP-11 2019 https://poplogarchive.getpoplog.org/poplog.info.html   
 [POPLOG]: Poplog https://github.com/poplog/poplog   
 [RAL83]: DISTRIBUTED INTERACTIVE COMPUTING NOTE 893, RUTHERFORD APPLETON LABORATORY, 3 October 1983 http://www.dataweb.clrc.ac.uk/acd/pdfs/dic/dic841.pdf   
@@ -1163,10 +1230,12 @@ October 1984 http://www.dataweb.stfc.ac.uk/inf/literature/reports/sti_report/p00
 [Rich85]: Richards, H. (1985). Applicative programming. Systems Research, 2(4), 299–306. doi:10.1002/sres.3850020409   
 [Ryde82]: Rydeheard, David Eric. "Applications of category theory to programming and program specification." (1982).   
 [Schmidt]: CV https://people.cs.ksu.edu/~schmidt/vita.html   
+[Shap83]: Ehud Y. Shapiro. 1983. The fifth generation project — a trip report. Commun. ACM 26, 9 (Sept. 1983), 637–641. doi:10.1145/358172.358179   
 [Slom89]: Sloman, Aaron. "The Evolution of Poplog and Pop-11 at Sussex University." POP-11 Comes of Age: The Advancement of an AI Programming Language (1989): 30-54.   
 [Sokolowski]: CV https://prabook.com/web/stefan_andrzej.sokolowski/90807   
 [SPJ82]: Simon L Peyton Jones. 1982. An investigation of the relative efficiencies of combinators and lambda expressions. In Proceedings of the 1982 ACM symposium on LISP and functional programming (LFP '82). Association for Computing Machinery, New York, NY, USA, 150–158. doi:10.1145/800068.802145   
 [SPJ85]: Jones, S. L. P. (1985). Yacc in sasl — an exercise in functional programming. Software: Practice and Experience, 15(8), 807–820. doi:10.1002/spe.4380150807   
+[SPJ87]: Peyton Jones, Simon L. The implementation of functional programming languages (prentice-hall international series in computer science). Prentice-Hall, Inc., 1987.   
 [Stee82b]: Guy L. Steele. 1982. Report on the 1980 LiSP Conference Stanford University. August 25-27, 1980. SIGPLAN Not. 17, 3 (March 1982), 22–36. doi:10.1145/947912.1361218   
 [Stee84]: Steele, Guy L. "Common LISP. The language." Bedford: Digital Press (1984).   
 [Stee96]: Guy L. Steele and Richard P. Gabriel. 1996. The evolution of Lisp. Uncut draft.   
