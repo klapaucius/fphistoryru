@@ -1439,6 +1439,11 @@ f (NODE t1 t2) = h t1 t2
 Литература
 ==========
 
+[SPJ88a]: Peyton Jones, Clack, Salkild and Hardie, Functional Programming on the GRIP multiprocessor. in Proceedings IEE International Specialist Seminar on Design and Application of Parallel Digital Processors, pp 116-127. 1988   
+[SPJ18]: People of Programming Languages. An interview project in conjunction with POPL 2018. Interview with Simon Peyton-Jones http://www.cs.cmu.edu/~popl-interviews/peytonjones.html  
+[SPJ87a]: Peyton Jones, Clack, Salkild and Hardie, GRIP - a high performance architecture for parallel graph reduction, LNCS 274:98-112, ISSN 0302-9743, Springer 1987.  
+[SPJ88b]: S. L. Peyton Jones. 1988. FLIC—a functional language intermediate code. SIGPLAN Not. 23, 8 (August 1988), 30–48. doi:10.1145/47907.47910   
+[Trin89]: Phil Trinder, A FUNCTIONAL DATABASE, PRG82, 1989.   
 [Bare87]: Barendregt, H.P., M.C.J.D. van Eekelen, P.H. Hartel, L.O. Hertzberger, M.J. Plasmeijer and W.G. Vree. The Dutch Parallel Reduction Machine Project, In Future Generations Computer Systems 3, pp. 261-270. Proceedings of the International Conference on Frontiers of Computing (Amsterdam, December 1987).   
 [Brus87]: Brus, T., M.C.J.D. van Eekelen, M. van Leer, M.J. Plasmeijer and H.P. Barendregt. CLEAN - A Language for Functional Graph Rewriting, In Proc. of Conference on Functional Programming Languages and Computer Architecture (FPCA '87), Portland, Oregon, USA, Kahn Ed., Springer-Verlag, LNCS 274, pp. 364-384.   
 [Nock91]: Nöcker, E.G.J.M.H., J.E.W. Smetsers, M.C.J.D. van Eekelen and M.J. Plasmeijer. Concurrent CLEAN, In Proc. of Parallel Architectures and Languages Europe (PARLE '91), Eindhoven, the Netherlands, Aarts, Leeuwen and Rem Eds., Springer-Verlag, LNCS 505, pp. 202-219.   
