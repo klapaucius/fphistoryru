@@ -2997,7 +2997,7 @@ Egison [Egi11]
 Hackett [King17]
 
 ```
-(defn map : (forall [a b] {{a -> b} -> (List a) -> (List b)})
+(defn map : (forall [a b] { {a -> b} -> (List a) -> (List b)})
   [[f {x :: xs}] {(f y) :: (map f ys)}]
   [[_ Nil      ] Nil])
 ```
